@@ -1,0 +1,123 @@
+<?php
+
+namespace [namespace];
+
+use Livewire\Component;
+use WireUi\Traits\Actions;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On;
+use [model_import]
+use [action_import]
+use [request_import]
+
+class [class] extends DataTableComponent
+{
+    use Actions;
+
+    private $viewForm     = 'core::[model_low_case].form';
+    private $table        = 'core::[model_low_case].table';
+    private $refreshTable = 'refreshTable';
+    public  $formTitle    = '[title]';
+    public  $resetForm    = 'resetForm';
+
+    public $formType = 'modal', $formModal, $state, $disable = false, $softDelete = false, $forceDelete = false;
+    public [fields];
+    public $resetFields = ['forceDelete', 'state', [fields]];
+
+    protected function rules()
+    {
+        return (new [model]Request($this->dataId))->rules();
+    }
+
+    protected function validationAttributes(): array
+    {
+        return (new [model]Request($this->dataId))->attributes();
+    }
+
+    public function mount($formType = 'modal', $data = NULL)
+    {
+        $this->formType = $formType;
+        if ($data) {
+            $this->show($data);
+        }
+    }
+
+    #[On('resetForm')]
+    public function resetForm()
+    {
+        $this->clearValidation();
+        if ($this->formType == 'modal') {
+            $this->reset($this->resetFields);
+            $this->dataId = Str::orderedUuid()->toString();
+        }
+        $this->disable = true;
+    }
+
+    #[On('create')]
+    public function create()
+    {
+        $this->resetForm();
+        $this->disable = false;
+    }
+
+    #[On('setData')]
+    public function setData()
+    {
+        $this->clearValidation();
+        $this->disable   = true;
+        $this->dataId    = $this->state->id;
+        $this->name      = $this->state->name;
+        $this->guardName = $this->state->guard_name;
+    }
+
+    #[On('show')]
+    public function show([model] $data)
+    {
+        $this->state = $data;
+        $this->setData();
+    }
+
+    public function render()
+    {
+        if ($this->formType == 'modal')
+            return view('partials.form-modal', ['modalName' => 'formModal', 'width' => '2xl', 'view' => $this->viewForm]);
+        if ($this->formType == 'card')
+            return view('partials.form-card', ['view' => $this->viewForm]);
+    }
+
+    private function _notif($message, $icon)
+    {
+        $this->notification([
+            'title'       => NULL,
+            'description' => $message,
+            'icon'        => $icon
+        ]);
+        if ($icon == 'success') {
+            $this->resetForm();
+            $this->formModal = false;
+            $this->dispatch($this->refreshTable)->to($this->table);
+            $this->dispatch('saved');
+        }
+    }
+
+    public function save([model]Action $action)
+    {
+        $validatedData = $this->validate((new [model]Request($this->dataId))->rules());
+        try {
+            $action->save($validatedData);
+            $this->_notif('Data berhasil disimpan', 'success');
+        } catch (\Exception $e) {
+            $this->_notif($e->getMessage(), 'error');
+        }
+    }
+
+    public function delete([model]Action $action, $id)
+    {
+        try {
+            $action->delete($id, $this->forceDelete);
+            $this->_notif('Data berhasil dihapus', 'success');
+        } catch (\Exception $e) {
+            $this->_notif($e->getMessage(), 'error');
+        }
+    }
+}
