@@ -392,9 +392,9 @@ trait ComponentParser
                 continue;
             }
 
-            $forms[] = '<x-input id="' . $field . '" label="' . Str::replace('_', ' ', Str::title($field)) . '" placeholder="' . Str::replace('_', ' ', Str::title($field)) . '" required :disabled="$disable" wire:model="' . Str::replace('_', ' ', Str::title($field)) . '" />';
+            $forms[] = '<x-input id="'.$field.'" label="'.Str::replace('_', ' ', Str::title($field)).'" placeholder="'.Str::replace('_', ' ', Str::title($field)).'" required :disabled="$disable" wire:model="'.Str::replace('_', ' ', Str::title($field)).'" />';
         }
-        
+
         return implode("\n\t\t", $forms);
     }
 
