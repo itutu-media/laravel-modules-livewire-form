@@ -384,17 +384,17 @@ trait ComponentParser
             ...$this->component->model->fillable
         ];
 
-        $forms = "";
+        $forms = [];
 
         foreach ($getFillable as $field) {
             if (in_array($field, $this->component->model->hidden)) {
                 continue;
             }
 
-            $forms .= '<x-input id="' . $field . '" label="' . Str::replace('_', ' ', Str::title($field)) . '" placeholder="' . Str::replace('_', ' ', Str::title($field)) . '" required :disabled="$disable" wire:model="' . Str::replace('_', ' ', Str::title($field)) . '" />';
+            $forms[] = '<x-input id="' . $field . '" label="' . Str::replace('_', ' ', Str::title($field)) . '" placeholder="' . Str::replace('_', ' ', Str::title($field)) . '" required :disabled="$disable" wire:model="' . Str::replace('_', ' ', Str::title($field)) . '" />';
         }
-
-        return $forms;
+        
+        return implode("\n\t\t", $forms);
     }
 
     protected function getComponentQuote()

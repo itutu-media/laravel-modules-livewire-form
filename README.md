@@ -1,7 +1,6 @@
 # `laravel-modules-livewire-form` is a powerful tool for Laravel developers looking to leverage the power of Livewire in their applications. With its artisan commands, Livewire integration, and configurability, it simplifies the process of creating Action, Request, Form Handler, and Form View in Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/itutu-media/laravel-modules-livewire-form.svg?style=flat-square)](https://packagist.org/packages/itutu-media/laravel-modules-livewire-form)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/itutu-media/laravel-modules-livewire-form/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/itutu-media/laravel-modules-livewire-form/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/itutu-media/laravel-modules-livewire-form/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/itutu-media/laravel-modules-livewire-form/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/itutu-media/laravel-modules-livewire-form.svg?style=flat-square)](https://packagist.org/packages/itutu-media/laravel-modules-livewire-form)
 
