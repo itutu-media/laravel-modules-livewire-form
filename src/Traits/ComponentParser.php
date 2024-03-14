@@ -100,7 +100,7 @@ trait ComponentParser
         $moduleLivewireNamespace = 'App\\Actions';
 
         $classDir = (string) Str::of($modulePath)
-            ->append('/' . $moduleLivewireNamespace)
+            ->append('/'.$moduleLivewireNamespace)
             ->replace(['\\'], '/');
 
         $classPath = $this->directories->implode('/');
@@ -127,7 +127,7 @@ trait ComponentParser
         $moduleLivewireNamespace = 'App\\Http\\Requests';
 
         $classDir = (string) Str::of($modulePath)
-            ->append('/' . $moduleLivewireNamespace)
+            ->append('/'.$moduleLivewireNamespace)
             ->replace(['\\'], '/');
 
         $classPath = $this->directories->implode('/');
@@ -141,7 +141,7 @@ trait ComponentParser
         return (object) [
             'dir' => $classDir,
             'path' => $classPath,
-            'file' => $classDir . '/' . $className . '.php',
+            'file' => $classDir . '/' . $classPath . '.php',
             'namespace' => $namespace,
             'name' => $className,
         ];
@@ -248,8 +248,8 @@ trait ComponentParser
         $data = implode("\n\t\t", $data);
 
         return preg_replace(
-            ['/\[namespace\]/', '/\[model_import\]/', '/\[class\]/', '/\[data\]/', '/\[model\]/'],
-            [$this->component->action->namespace, $this->getModelImport(), $this->component->action->name, $data, Str::lower($this->getModelName())],
+            ['/\[namespace\]/', '/\[model_import\]/', '/\[class\]/', '/\[data\]/'. '/\[model\]/'],
+            [$this->component->action->namespace, $this->getModelImport(), $this->component->action->name . 'Action', '', Str::lower($this->getModelName())],
             file_get_contents($this->component->stub->action),
         );
     }
@@ -273,8 +273,8 @@ trait ComponentParser
         $rules = implode(",\n\t\t\t", $rules);
 
         return preg_replace(
-            ['/\[namespace\]/', '/\[model_import\]/', '/\[class\]/', '/\[data\]/', '/\[model\]/', '/\[rules\]/'],
-            [$this->component->request->namespace, $this->getModelImport(), $this->component->request->name, '', Str::lower($this->getModelName()), $rules],
+            ['/\[namespace\]/', '/\[model_import\]/', '/\[class\]/', '/\[data\]/'. '/\[model\]/'],
+            [$this->component->request->namespace, $this->getModelImport(), $this->component->request->name . 'Request', '', Str::lower($this->getModelName())],
             file_get_contents($this->component->stub->request),
         );
     }
@@ -326,9 +326,11 @@ trait ComponentParser
         return $this->component->action->namespace . '\\' . $this->component->action->name;
     }
 
-    public function getRequestImport(): string
-    {
-        return $this->component->request->namespace . '\\' . $this->component->request->name;
+        if (File::exists(app_path($this->model.'.php'))) {
+            return 'App\\'.$this->model;
+        }
+        
+        return str_replace('/', '\\', $this->model);
     }
 
     public function getModelImport(): string
@@ -347,6 +349,7 @@ trait ComponentParser
     public function getModelName(): string
     {
         $explode = explode('\\', $this->getModelImport());
+
         return end($explode);
     }
 
@@ -379,19 +382,26 @@ trait ComponentParser
     }
 
     public function getForms()
-    {
+    {        
+        $modelName = $this->getModelName();
+        $model = new $modelName();
+
+        if ($model instanceof Model === false) {
+            throw new \Exception('Invalid model given.');
+        }
+
         $getFillable = [
-            ...$this->component->model->fillable
+            ...$model->getFillable()
         ];
 
-        $forms = "";
+        $forms = '';
 
         foreach ($getFillable as $field) {
             if (in_array($field, $this->component->model->hidden)) {
                 continue;
             }
 
-            $forms .= '<x-input id="' . $field . '" label="' . Str::replace('_', ' ', Str::title($field)) . '" placeholder="' . Str::replace('_', ' ', Str::title($field)) . '" required :disabled="$disable" wire:model="' . Str::replace('_', ' ', Str::title($field)) . '" />';
+            $forms .= '<x-input id="'.$field.'" label="'.Str::replace('_', ' ', Str::title($field)).'" placeholder="'.Str::replace('_', ' ', Str::title($field)).'" required :disabled="$disable" wire:model="'.Str::replace('_', ' ', Str::title($field)).'" />';
         }
 
         return $forms;
