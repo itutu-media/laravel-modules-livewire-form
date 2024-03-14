@@ -2,7 +2,7 @@
 
 namespace [namespace];
 
-use [model_import]
+use [model_import];
 
 class [class]
 {

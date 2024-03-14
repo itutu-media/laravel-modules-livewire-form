@@ -6,11 +6,11 @@ use Livewire\Component;
 use WireUi\Traits\Actions;
 use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use [model_import]
-use [action_import]
-use [request_import]
+use [model_import];
+use [action_import];
+use [request_import];
 
-class [class] extends DataTableComponent
+class [class] extends Component
 {
     use Actions;
 
@@ -20,18 +20,18 @@ class [class] extends DataTableComponent
     public  $formTitle    = '[title]';
     public  $resetForm    = 'resetForm';
 
-    public $formType = 'modal', $formModal, $state, $disable = false, $softDelete = false, $forceDelete = false;
+    public $formType = 'modal', $formModal, $state, $disable = false, $softDelete = false, $forceDelete = false, $dataId;
     public [fields];
-    public $resetFields = ['forceDelete', 'state', [fields]];
+    public $resetFields = ['forceDelete', 'state', [resetFields]];
 
     protected function rules()
     {
-        return (new [model]Request($this->dataId))->rules();
+        return (new [request]($this->dataId))->rules();
     }
 
     protected function validationAttributes(): array
     {
-        return (new [model]Request($this->dataId))->attributes();
+        return (new [request]($this->dataId))->attributes();
     }
 
     public function mount($formType = 'modal', $data = NULL)
@@ -66,8 +66,7 @@ class [class] extends DataTableComponent
         $this->clearValidation();
         $this->disable   = true;
         $this->dataId    = $this->state->id;
-        $this->name      = $this->state->name;
-        $this->guardName = $this->state->guard_name;
+        [setData]
     }
 
     #[On('show')]
@@ -100,9 +99,9 @@ class [class] extends DataTableComponent
         }
     }
 
-    public function save([model]Action $action)
+    public function save([action] $action)
     {
-        $validatedData = $this->validate((new [model]Request($this->dataId))->rules());
+        $validatedData = $this->validate((new [request]($this->dataId))->rules());
         try {
             $action->save($validatedData);
             $this->_notif('Data berhasil disimpan', 'success');
@@ -111,7 +110,7 @@ class [class] extends DataTableComponent
         }
     }
 
-    public function delete([model]Action $action, $id)
+    public function delete([action] $action, $id)
     {
         try {
             $action->delete($id, $this->forceDelete);
