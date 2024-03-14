@@ -1,0 +1,54 @@
+<?php
+
+namespace [namespace];
+
+use [model_import];
+
+class [class]
+{
+  private $data;
+
+  private function _prepareData($newData)
+  {
+    [data]
+  }
+
+  public function create($newData)
+  {
+    $this->_prepareData($newData);
+    return [model]::create($this->data);
+  }
+
+  public function update($id, $newData)
+  {
+    $this->_prepareData($newData);
+    return [model]::find($id)->update($this->data);
+  }
+
+  public function save($newData)
+  {
+    $this->_prepareData($newData);
+    return [model]::updateOrCreate(['id' => $newData['dataId']], $this->data);
+  }
+
+  public function delete($id, $forceDelete = false)
+  {
+    if ($data = [model]::find($id)) {
+      $data->delete();
+    }
+  }
+
+  public function restore($id)
+  {
+    [model]::withTrashed()->find($id)->restore();
+  }
+
+  public function deleteOrRestore($id, $counter)
+  {
+    if ($data = [model]::find($id)) {
+      $data->delete();
+    }
+    $counter[1]++;
+    return $counter;
+  }
+}

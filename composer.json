@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "itutu-media/laravel-modules-livewire-form",
+    "description": "`laravel-modules-livewire-form` is a powerful tool for Laravel developers looking to leverage the power of Livewire in their applications. With its artisan commands, Livewire integration, and configurability, it simplifies the process of creating Action, Request, Form Handler, and Form View in Laravel",
     "keywords": [
-        ":vendor_name",
+        "ITUTU Media",
         "laravel",
-        ":package_slug"
+        "laravel-modules-livewire-form"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/itutu-media/laravel-modules-livewire-form",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "ITUTU Media",
+            "email": "hello@itutu-media.id",
             "role": "Developer"
         }
     ],
@@ -35,19 +35,19 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "ITUTUMedia\\LaravelModulesLivewireForm\\": "src/",
+            "ITUTUMedia\\LaravelModulesLivewireForm\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "ITUTUMedia\\LaravelModulesLivewireForm\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
     "scripts": {
         "post-autoload-dump": "@composer run prepare",
-        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "clear": "@php vendor/bin/testbench package:purge-laravel-modules-livewire-form --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": [
             "@composer run prepare",
@@ -73,10 +73,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "ITUTUMedia\\LaravelModulesLivewireForm\\LaravelModulesLivewireFormServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelModulesLivewireForm": "ITUTUMedia\\LaravelModulesLivewireForm\\Facades\\LaravelModulesLivewireForm"
             }
         }
     },
