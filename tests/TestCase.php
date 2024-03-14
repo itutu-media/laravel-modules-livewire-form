@@ -3,8 +3,8 @@
 namespace ITUTUMedia\LaravelModulesLivewireForm\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use ITUTUMedia\LaravelModulesLivewireForm\LaravelModulesLivewireFormServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
