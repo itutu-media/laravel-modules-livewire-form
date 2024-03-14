@@ -14,8 +14,8 @@ class [class] extends Component
 {
     use Actions;
 
-    private $viewForm     = 'core::[model_low_case].form';
-    private $table        = 'core::[model_low_case].table';
+    private $viewForm     = '[module]::[model_low_case].form';
+    private $table        = '[module]::[model_low_case].table';
     private $refreshTable = 'refreshTable';
     public  $formTitle    = '[title]';
     public  $resetForm    = 'resetForm';

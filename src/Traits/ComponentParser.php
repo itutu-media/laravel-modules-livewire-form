@@ -306,8 +306,8 @@ trait ComponentParser
         $setData = implode("\n\t\t", $setData);
 
         return preg_replace(
-            ['/\[namespace\]/', '/\[class\]/', '/\[model\]/', '/\[model_import\]/', '/\[model_low_case\]/', '/\[action_import\]/', '/\[request_import\]/', '/\[title\]/', '/\[fields\]/', '/\[resetFields\]/', '/\[setData\]/', '/\[action\]/', '/\[request\]/'],
-            [$this->component->class->namespace, $this->component->class->name, $this->getModelName(), $this->getModelImport(), Str::lower($this->getModelName()), $this->getActionImport(), $this->getRequestImport(), Str::title($this->component->class->name.' Form'), $fields, $resetFields, $setData, $this->component->action->name, $this->component->request->name],
+            ['/\[namespace\]/', '/\[class\]/', '/\[module\]/', '/\[model\]/', '/\[model_import\]/', '/\[model_low_case\]/', '/\[action_import\]/', '/\[request_import\]/', '/\[title\]/', '/\[fields\]/', '/\[resetFields\]/', '/\[setData\]/', '/\[action\]/', '/\[request\]/'],
+            [$this->component->class->namespace, $this->component->class->name, $this->getModuleLowerName(), $this->getModelName(), $this->getModelImport(), Str::lower($this->getModelName()), $this->getActionImport(), $this->getRequestImport(), Str::title($this->component->class->name.' Form'), $fields, $resetFields, $setData, $this->component->action->name, $this->component->request->name],
             $template,
         );
     }
