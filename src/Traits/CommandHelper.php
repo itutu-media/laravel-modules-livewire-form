@@ -1,6 +1,6 @@
 <?php
 
-namespace ITUTUMedia\LaravelModulesLivewireTable\Traits;
+namespace ITUTUMedia\LaravelModulesLivewireForm\Traits;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;

@@ -1,6 +1,6 @@
 <?php
 
-namespace ITUTUMedia\LaravelModulesLivewireTable\Support;
+namespace ITUTUMedia\LaravelModulesLivewireForm\Support;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;

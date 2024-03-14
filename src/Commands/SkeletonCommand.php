@@ -4,7 +4,7 @@ namespace VendorName\Skeleton\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use ITUTUMedia\LaravelModulesLivewireTable\Traits\ComponentParser;
+use ITUTUMedia\LaravelModulesLivewireForm\Traits\ComponentParser;
 
 class SkeletonCommand extends Command
 {

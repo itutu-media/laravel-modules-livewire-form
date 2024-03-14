@@ -5,7 +5,7 @@ namespace ITUTUMedia\LaravelModulesLivewireForm\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use ITUTUMedia\LaravelModulesLivewireTable\Traits\ComponentParser;
+use ITUTUMedia\LaravelModulesLivewireForm\Traits\ComponentParser;
 
 class LaravelModulesLivewireFormCommand extends Command
 {
